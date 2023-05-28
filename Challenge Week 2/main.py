@@ -65,6 +65,8 @@ doors = [[1,3,32, True], [2,1,43, True], [3,25,69, True], [4,1,0,False]]
 
 inventory_keys = ["","",""]
 kill_count = 0
+next_move1 = ""
+next_move2 = ""
 """~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Stored Data ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""
 
 
@@ -167,17 +169,21 @@ def play_game():
 
 
         def enemy_movement():
-            
             def cek_trigger():
                 for i in range(10):
-                    if range_enemies[i][1][0] <= player[0] <= range_enemies[i][1][1] and  range_enemies[i][2][0] <= player[1] <= range_enemies[i][2][1]:
-                        index = i
-                        if i>5:
-                            index += 1
-                        if i>=7:
-                            index += 1
-                        if enemies[index][3]:
-                            return range_enemies[i][0]
+                    if range_enemies[i][1][0] <= player[0] <= range_enemies[i][1][1] and range_enemies[i][2][0] <= player[1] <= range_enemies[i][2][1]:
+                        if i < 5:
+                            if enemies[i][3]:
+                                return range_enemies[i][0]
+                        elif i == 5:
+                            if enemies[5][3] or enemies[6][3]:
+                                return range_enemies[i][0]
+                        elif i == 6:
+                            if enemies[7][3] or enemies[8][3]:
+                                return range_enemies[i][0]
+                        elif i > 6:
+                            if enemies[i+2][3]:
+                                return range_enemies[i][0]
                 return -1
             anyone_triggered = cek_trigger()
 
@@ -354,8 +360,9 @@ def play_game():
                             lose()
 
                 elif index == 7:
+                    global next_move1, next_move2
+                    
                     def cek_wall(x,y,opx,opy):
-                        global next_move1, next_move2
                         if maps[x][y] == "#":
                             x -= opx
                             y -= opy
@@ -379,28 +386,45 @@ def play_game():
                             return go,xawal,yawal
                         return "",x,y
                     
-                    def is_done(x,y):
-                        if maps[x][y+1] == " " and maps[x][y-1] == " ":
-                            return True
-          
-                        return False
-                    if enemies[index][3]:
+                    def is_done(x, y, moves):
+                        if moves == 'left' or moves == 'right':
+                            if maps[x-1][y] == " " or maps[x+1][y] == " ":
+                                return ''
+                        elif moves == 'up':
+                            if maps[x][y+1] == " " and maps[x+1][y+1] == "#":
+                                return True, 'right'
+                            if maps[x][y-1] == " " and maps[x+1][y-1] == "#":
+                                return True, 'left'
+                            return False, ''
+                        elif moves == 'down':
+                            if maps[x][y+1] == " " and maps[x-1][y+1] == "#":
+                                return True, 'right'
+                            if maps[x][y-1] == " " and maps[x-1][y-1] == "#":
+                                return True, 'left'
+                            return False, ''
+                    
+                    if enemies[7][3]:
 
-                        if maps[enemies[index][1]-1][enemies[index][2]] == "!":
-                            maps[enemies[index][1]-1][enemies[index][2]] = " "
-                        maps[enemies[index][1]][enemies[index][2]] = " "
-                        x1,y1 = player[0] - enemies[index][1], player[1] - enemies[index][2]
-                        xx1,yy1 = enemies[index][1], enemies[index][2]
-                        next_move1 = ""
+                        if maps[enemies[7][1]-1][enemies[7][2]] == "!":
+                            maps[enemies[7][1]-1][enemies[7][2]] = " "
+                        maps[enemies[7][1]][enemies[7][2]] = " "
+                        x1,y1 = player[0] - enemies[7][1], player[1] - enemies[7][2]
+                        xx1,yy1 = enemies[7][1], enemies[7][2]
 
                         if next_move1 == "up":
                             xx1 -= 1
-                            if is_done(xx1,yy1):
-                                next_move1 = ""
+                            if is_done(xx1,yy1,'up')[0]:
+                                next_move1 = is_done(xx1,yy1,'up')[1]
                         elif next_move1 == "down":
                             xx1 += 1
-                            if is_done(xx1,yy1):
-                                next_move1 = ""
+                            if is_done(xx1,yy1,'down')[0]:
+                                next_move1 = is_done(xx1,yy1,'down')[1]
+                        elif next_move1 == 'left':
+                            yy1 -= 1
+                            next_move1 = is_done(xx1,yy1,'left')
+                        elif next_move1 == 'right':
+                            yy1 += 1
+                            next_move1 = is_done(xx1,yy1,'right')
                         elif x1<0 and y1<0:
                             xx1 -= 1
                             yy1 -= 1
@@ -432,28 +456,33 @@ def play_game():
                         elif x1 == 0 and y1 == 0:
                             lose()
 
-                        enemies[index][1], enemies[index][2] = xx1,yy1 
-                        maps[enemies[index][1]][enemies[index][2]] = "E"                        
-                        if player[0] == enemies[index][1] and player[1] == enemies[index][2]:
+                        enemies[7][1], enemies[7][2] = xx1,yy1 
+                        maps[enemies[7][1]][enemies[7][2]] = "E"                        
+                        if player[0] == enemies[7][1] and player[1] == enemies[7][2]:
                             lose()
 
-                    if enemies[index + 1][3]:
+                    if enemies[8][3]:
 
-                        if maps[enemies[index + 1][1]-1][enemies[index + 1][2]] == "!":
-                            maps[enemies[index + 1][1]-1][enemies[index + 1][2]] = " "
-                        maps[enemies[index + 1][1]][enemies[index + 1][2]] = " "
-                        x2,y2 = player[0] - enemies[index + 1][1], player[1] - enemies[index + 1][2]
-                        xx2,yy2 = enemies[index + 1][1], enemies[index + 1][2]
-                        next_move2 = ""
+                        if maps[enemies[8][1]-1][enemies[8][2]] == "!":
+                            maps[enemies[8][1]-1][enemies[8][2]] = " "
+                        maps[enemies[8][1]][enemies[8][2]] = " "
+                        x2,y2 = player[0] - enemies[8][1], player[1] - enemies[8][2]
+                        xx2,yy2 = enemies[8][1], enemies[8][2]
 
                         if next_move2 == "up":
                             xx2 -= 1
-                            if is_done(xx2,yy2):
-                                next_move2 = ""
+                            if is_done(xx2,yy2,'up')[0]:
+                                next_move2 = is_done(xx2,yy2,'up')[1]
                         elif next_move2 == "down":
                             xx2 += 1
-                            if is_done(xx2,yy2):
-                                next_move2 = ""
+                            if is_done(xx2,yy2,'down')[0]:
+                                next_move2 = is_done(xx2,yy2,'down')[1]
+                        elif next_move2 == 'left':
+                            yy2 -= 1
+                            next_move2 = is_done(xx2,yy2,'left')
+                        elif next_move2 == 'right':
+                            yy2 += 1
+                            next_move2 = is_done(xx2,yy2,'right')
                         elif x2<0 and y2<0:
                             xx2 -= 1
                             yy2 -= 1
@@ -485,9 +514,9 @@ def play_game():
                         elif x2 == 0 and y2 == 0:
                             lose()
 
-                        enemies[index + 1][1], enemies[index + 1][2] = xx2,yy2
-                        maps[enemies[index + 1][1]][enemies[index + 1][2]] = "E"
-                        if player[0] == enemies[index + 1][1] and player[1] == enemies[index + 1][2]:
+                        enemies[8][1], enemies[8][2] = xx2,yy2
+                        maps[enemies[8][1]][enemies[8][2]] = "E"
+                        if player[0] == enemies[8][1] and player[1] == enemies[8][2]:
                             lose()
 
             if anyone_triggered != -1:
@@ -501,10 +530,12 @@ def play_game():
                     
                 elif anyone_triggered == 6 or anyone_triggered == 8:
                     targeting_move(anyone_triggered)
-                    if maps[enemies[anyone_triggered - 1][1]-1][enemies[anyone_triggered - 1][2]] == " ":
-                        maps[enemies[anyone_triggered - 1][1]-1][enemies[anyone_triggered - 1][2]] == "!"
-                    if maps[enemies[anyone_triggered][1]-1][enemies[anyone_triggered][2]] == " ":
-                        maps[enemies[anyone_triggered][1]-1][enemies[anyone_triggered][2]] == "!"
+                    if enemies[anyone_triggered - 1][3]:
+                        if maps[enemies[anyone_triggered - 1][1]-1][enemies[anyone_triggered - 1][2]] == " ":
+                            maps[enemies[anyone_triggered - 1][1]-1][enemies[anyone_triggered - 1][2]] = "!"
+                    if enemies[anyone_triggered][3]:
+                        if maps[enemies[anyone_triggered][1]-1][enemies[anyone_triggered][2]] == " ":
+                            maps[enemies[anyone_triggered][1]-1][enemies[anyone_triggered][2]] = "!"
                     for i in range(12):
                         if i != anyone_triggered - 1 and i != anyone_triggered and enemies[i][3]:
                             random_move(i,i)
@@ -514,7 +545,6 @@ def play_game():
                         if maps[enemies[i][1]-1][enemies[i][2]] == "!":
                             maps[enemies[i][1]-1][enemies[i][2]] = " "
                         random_move(i,i)
-
 
 
         def move(action):
