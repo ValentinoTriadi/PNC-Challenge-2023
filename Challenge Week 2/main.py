@@ -182,7 +182,7 @@ def play_game():
                             if enemies[7][3] or enemies[8][3]:
                                 return range_enemies[i][0]
                         elif i > 6:
-                            if enemies[i+2][3]:
+                            if enemies[i+2  ][3]:
                                 return range_enemies[i][0]
                 return -1
             anyone_triggered = cek_trigger()
@@ -413,45 +413,73 @@ def play_game():
 
                         if next_move1 == "up":
                             xx1 -= 1
+                            if cek_double(xx1,yy1):
+                                xx1 += 1
                             if is_done(xx1,yy1,'up')[0]:
                                 next_move1 = is_done(xx1,yy1,'up')[1]
                         elif next_move1 == "down":
                             xx1 += 1
+                            if cek_double(xx1,yy1):
+                                xx1 -= 1
                             if is_done(xx1,yy1,'down')[0]:
                                 next_move1 = is_done(xx1,yy1,'down')[1]
                         elif next_move1 == 'left':
                             yy1 -= 1
+                            if cek_double(xx1,yy1):
+                                yy1 += 1
                             next_move1 = is_done(xx1,yy1,'left')
                         elif next_move1 == 'right':
                             yy1 += 1
+                            if cek_double(xx1,yy1):
+                                yy1 -= 1
                             next_move1 = is_done(xx1,yy1,'right')
                         elif x1<0 and y1<0:
                             xx1 -= 1
                             yy1 -= 1
+                            if cek_double(xx1,yy1):
+                                xx1 += 1
+                                yy1 += 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,-1,-1)
                         elif x1>0 and y1>0:
                             xx1 += 1
                             yy1 += 1
+                            if cek_double(xx1,yy1):
+                                xx1 -= 1
+                                yy1 -= 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,1,1)
                         elif x1>0 and y1<0:
                             xx1 += 1
                             yy1 -= 1
+                            if cek_double(xx1,yy1):
+                                xx1 -= 1
+                                yy1 += 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,1,-1)
                         elif x1<0 and y1>0:
                             xx1 -= 1
                             yy1 += 1
+                            if cek_double(xx1,yy1):
+                                xx1 += 1
+                                yy1 -= 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,-1,1)
                         elif x1 == 0 and y1 > 0:
                             yy1 += 1
+                            if cek_double(xx1,yy1):
+                                yy1 -= 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,0,1)
                         elif x1 == 0 and y1 < 0:
                             yy1 -= 1
+                            if cek_double(xx1,yy1):
+                                yy1 += 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,0,-1)
                         elif x1 > 0 and y1 == 0:
                             xx1 += 1
+                            if cek_double(xx1,yy1):
+                                xx1 -= 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,1,0)
                         elif x1 < 0 and y1 == 0:
                             xx1 -= 1
+                            if cek_double(xx1,yy1):
+                                xx1 += 1
                             next_move1, xx1, yy1 = cek_wall(xx1,yy1,-1,0)
                         elif x1 == 0 and y1 == 0:
                             lose()
@@ -471,45 +499,73 @@ def play_game():
 
                         if next_move2 == "up":
                             xx2 -= 1
+                            if cek_double(xx2,yy2):
+                                xx2 += 1
                             if is_done(xx2,yy2,'up')[0]:
                                 next_move2 = is_done(xx2,yy2,'up')[1]
                         elif next_move2 == "down":
                             xx2 += 1
+                            if cek_double(xx2,yy2):
+                                xx2 -= 1
                             if is_done(xx2,yy2,'down')[0]:
                                 next_move2 = is_done(xx2,yy2,'down')[1]
                         elif next_move2 == 'left':
                             yy2 -= 1
+                            if cek_double(xx2,yy2):
+                                yy2 += 1
                             next_move2 = is_done(xx2,yy2,'left')
                         elif next_move2 == 'right':
                             yy2 += 1
+                            if cek_double(xx2,yy2):
+                                yy2 -= 1
                             next_move2 = is_done(xx2,yy2,'right')
                         elif x2<0 and y2<0:
                             xx2 -= 1
                             yy2 -= 1
+                            if cek_double(xx2,yy2):
+                                xx2 += 1
+                                yy2 += 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,-1,-1)
                         elif x2>0 and y2>0:
                             xx2 += 1
                             yy2 += 1
+                            if cek_double(xx2,yy2):
+                                xx2 -= 1
+                                yy2 -= 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,1,1)
                         elif x2>0 and y2<0:
                             xx2 += 1
                             yy2 -= 1
+                            if cek_double(xx2,yy2):
+                                xx2 -= 1
+                                yy2 += 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,1,-1)
                         elif x2<0 and y2>0:
                             xx2 -= 1
                             yy2 += 1
+                            if cek_double(xx2,yy2):
+                                xx2 += 1
+                                yy2 -= 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,-1,1)
                         elif x2 == 0 and y2 > 0:
                             yy2 += 1
+                            if cek_double(xx2,yy2):
+                                yy2 -= 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,0,1)
                         elif x2 == 0 and y2 < 0:
                             yy2 -= 1
+                            if cek_double(xx2,yy2):
+                                yy2 += 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,0,-1)
                         elif x2 > 0 and y2 == 0:
                             xx2 += 1
+                            if cek_double(xx2,yy2):
+                                xx2 -= 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,1,0)
                         elif x2 < 0 and y2 == 0:
                             xx2 -= 1
+                            if cek_double(xx2,yy2):
+                                xx2 += 1
                             next_move2, xx2, yy2 = cek_wall(xx2,yy2,-1,0)
                         elif x2 == 0 and y2 == 0:
                             lose()
