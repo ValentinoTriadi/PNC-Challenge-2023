@@ -835,6 +835,8 @@ def play_game():
                 cek_doors("open")
             
         ch = msvcrt.getch()
+        while ch not in [b'w',b'a',b's',b'd',b'f',b' ',b'\r']:
+            ch = msvcrt.getch()
         if ch in b'\x00':
             ch = msvcrt.getch()
         if ch == b'w':
