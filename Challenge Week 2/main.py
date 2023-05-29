@@ -96,10 +96,54 @@ def validate(type, var1):
 """~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Game ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""
 
 def lose():
+    from colorama import Fore
+    os.system("cls||clear")
+    array_tambahan = ["",
+" oooooo   oooo   .oooooo.   ooooo     ooo  oooooooooo.   ooooo oooooooooooo oooooooooo.",
+"  `888.   .8'   d8P'  `Y8b  `888'     `8'  `888'   `Y8b  `888' `888'     `8 `888'   `Y8b",
+"   `888. .8'   888      888  888       8    888      888  888   888          888      888",
+"    `888.8'    888      888  888       8    888      888  888   888oooo8     888      888",
+"     `888'     888      888  888       8    888      888  888   888    '     888      888",
+"      888      `88b    d88'  `88.    .8'    888     d88'  888   888       o  888     d88'",
+"     o888o      `Y8bood8P'     `YbodP'     o888bood8P'   o888o o888ooooood8 o888bood8P'",
+""]
+
+    for i in range(27):
+        if 9 <= i <= 17:
+            print(Fore.RED + array_tambahan[i-9], end="")
+        else:
+            print(Fore.WHITE,end="")
+            for j in range(70):
+                if maps[i][j] == "P":
+                    print(" ",end="")
+                else:
+                    print(maps[i][j],end="")
+        print()
+
     exit()
 
 def win_yeay():
-    print(ascii("Yeay Menang"))
+    from colorama import Fore
+    os.system("cls||clear")
+    array_tambahan = ["",
+" oooooo   oooo   .oooooo.   ooooo     ooo  oooooo   oooooo     oooo ooooo ooooo      ooo",
+"  `888.   .8'   d8P'  `Y8b  `888'     `8'   `888.    `888.     .8'  `888' `888b.     `8'",
+"   `888. .8'   888      888  888       8     `888.   .8888.   .8'    888   8 `88b.    8",
+"    `888.8'    888      888  888       8      `888  .8'`888. .8'     888   8   `88b.  8",
+"     `888'     888      888  888       8       `888.8'  `888.8'      888   8     `88b.8",
+"      888      `88b    d88'  `88.    .8'        `888'    `888'       888   8       `888",
+"     o888o      `Y8bood8P'     `YbodP'           `8'      `8'       o888o o8o        `8",
+""]
+    
+    for i in range(27):
+        if 9 <= i <= 17:
+            print(Fore.GREEN + array_tambahan[i-9], end="")
+        else:
+            print(Fore.WHITE,end="")
+            for j in range(70):
+                print(maps[i][j],end="")
+        print()
+
     exit()
 
 def cek_keys(action):
