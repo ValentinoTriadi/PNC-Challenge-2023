@@ -14,6 +14,6 @@ How to run?
 3. Run main.py file  
 
 How to install coloroma module?  
-2. Open Terminal  
-3. Type "pip install coloroma"  
-4. Wait for the instalation to finish  
+1. Open Terminal  
+2. Type "pip install coloroma"  
+3. Wait for the instalation to finish  
