@@ -2,7 +2,7 @@
 PNC Challenge 2023 - credit to DNW
 
 [!] Warning [!]  
-This program is not well-commented because of its complexity (low-medium level)
+This program is not well-commented
   
   
 How to run?
