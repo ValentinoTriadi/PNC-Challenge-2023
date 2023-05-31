@@ -2,13 +2,11 @@
 PNC Challenge 2023 - credit to DNW
 
 [!] Warning [!]  
-This program is not well-commented because (lazy hehe)  
+This program is not well-commented 
 
 This program is still on developing proccess
 More Features I'll add:
 1. Visual (I'll use pygame library for the visual)
-2. Attack charge (Need 3 move to be able to attack if the attack is not charged)
-  
   
 How to run?  
 1. Open Terminal  
