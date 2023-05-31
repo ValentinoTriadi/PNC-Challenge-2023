@@ -13,7 +13,7 @@ How to run?
 2. Install coloroma module  
 3. Run main.py file  
 
-1. How to install coloroma module?  
+How to install coloroma module?  
 2. Open Terminal  
 3. Type "pip install coloroma"  
 4. Wait for the instalation to finish  
